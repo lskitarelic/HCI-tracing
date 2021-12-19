@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PressureSignature</string>
+    <string name="save_signature">Save signature</string>
+    <string name="clear_signature">Clear signature</string>
+    <string name="redraw_last">Redraw last</string>
+    <string name="menu">Menu</string>
+</resources>
