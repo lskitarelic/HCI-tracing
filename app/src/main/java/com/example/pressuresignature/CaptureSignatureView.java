@@ -250,6 +250,10 @@ public class CaptureSignatureView extends View {
         if (count <=8) {
             drawTemplate(count);
         }
+        if (count > 8) {
+            count = 1;
+            drawTemplate(count);
+        }
     }
 
     public void updateCount() {

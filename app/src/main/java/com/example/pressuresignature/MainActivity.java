@@ -3,12 +3,10 @@ package com.example.pressuresignature;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,17 +14,8 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     CaptureSignatureView mSig;
@@ -51,7 +40,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
-        String name = "lskitarelic";
+        SharedPreferences prefs = this.getSharedPreferences("settings", Context.MODE_PRIVATE);
+        String name = prefs.getString("name", "");
+        String input_type = prefs.getString("input", "")
         String task;
         switch(mSig.count) {
             case 1:
@@ -82,12 +73,16 @@ public class MainActivity extends AppCompatActivity {
                 throw new IllegalStateException("Unexpected value: " + mSig.count);
         }
         switch (item.getItemId()) {
+            case R.id.settings:
+                intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return  true;
             case R.id.save:
                 mSig.updateCount();
                 intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 intent.setType("*/*");
-                intent.putExtra(Intent.EXTRA_TITLE, name + task + ".txt");
+                intent.putExtra(Intent.EXTRA_TITLE, name + '_' + input_type + task + ".txt");
 
                 startActivityForResult(intent, 1);
                 mSig.ClearCanvas();
@@ -110,7 +105,8 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     ParcelFileDescriptor pfd = this.getContentResolver().openFileDescriptor(uri, "w");
                     FileOutputStream fileOutputStream = new FileOutputStream(pfd.getFileDescriptor());
-                    String line = "Finger" + "\n";
+                    SharedPreferences prefs = this.getSharedPreferences("settings", Context.MODE_PRIVATE);
+                    String line = prefs.getString("input", "") + "\n";
                     fileOutputStream.write(line.getBytes());
                     line = mSig.getTime() + "\n";
                     fileOutputStream.write(line.getBytes());

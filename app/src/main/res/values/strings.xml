@@ -4,4 +4,10 @@
     <string name="clear_signature">Clear signature</string>
     <string name="redraw_last">Redraw last</string>
     <string name="menu">Menu</string>
+    <string name="settings">Settings</string>
+    <string name="input_method">Input method</string>
+    <string name="name">Name</string>
+    <string name="save">Save</string>
+    <string name="metoda_unosa_finger_mouse_stilus">Metoda unosa: Finger, Mouse, Stilus</string>
+    <string name="unesi_prvo_slovo_imena_i_prezime_bez_palatala_ivo_ivi_iivic">Unesi prvo slovo imena i prezime bez palatala (Ivo Ivić = iivic)</string>
 </resources>
