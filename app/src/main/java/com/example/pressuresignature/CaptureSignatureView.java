@@ -95,6 +95,9 @@ public class CaptureSignatureView extends View {
     private double hardfun2(double theta) { // done
         return 200 + 100 * Math.cos(10 * theta) + 100 * Math.sin(5*theta);
     }
+    private double hardfun3(double theta) { // done
+        return 100 * (3 + 2* Math.sin(6 * theta) * Math.cos(3 * theta));
+    }
 
     public void drawTemplate(int count) {
         _paint.setColor(Color.argb(255, 190, 190, 190));
@@ -125,6 +128,9 @@ public class CaptureSignatureView extends View {
                     break;
                 case 8:
                     r = hardfun2(theta);
+                    break;
+                case 9:
+                    r = hardfun3(theta);
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + count);
@@ -247,10 +253,10 @@ public class CaptureSignatureView extends View {
         _data.dataPoints.clear();
         startTime = 0;
         endTime = 0;
-        if (count <=8) {
+        if (count <=9) {
             drawTemplate(count);
         }
-        if (count > 8) {
+        if (count > 9) {
             count = 1;
             drawTemplate(count);
         }

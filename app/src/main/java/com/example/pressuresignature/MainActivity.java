@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent;
         SharedPreferences prefs = this.getSharedPreferences("settings", Context.MODE_PRIVATE);
         String name = prefs.getString("name", "");
-        String input_type = prefs.getString("input", "")
+        String input_type = prefs.getString("input", "");
         String task;
         switch(mSig.count) {
             case 1:
@@ -68,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 8:
                 task = "_h2";
+                break;
+            case 9:
+                task = "_h3";
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + mSig.count);
